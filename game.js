@@ -14,6 +14,12 @@ class LoadScene extends Phaser.Scene
         this.load.image('village', 'assets/map/map.png');
         this.load.image('bicycle', 'assets/sprites/menu-bicycle.png');
 
+        this.load.image('eye', 'assets/sprites/eye-plain.png');
+
+        this.load.image('global', 'assets/global.png');
+        this.load.video('game-over', 'assets/game-over.mp4');
+        this.load.image('why', 'assets/why.png');
+
         this.load.image('map-pawn', 'assets/map/map-pawn.png');
         this.load.image('scene-chess', 'assets/scenes/scene-chess.png');
     
@@ -103,7 +109,30 @@ class MenuScene extends Phaser.Scene
             yoyo: true
         });
         startButton.on('pointerdown', () => {
-            this.scene.start('play');
+            this.scene.start('global');
+        });
+    }
+}
+
+class GlobalScene extends Phaser.Scene
+{
+    constructor()
+    {
+        super({ key: 'global', active: false });
+    }
+
+    create ()
+    {
+        this.add.image(400, 300, 'global');
+        let bicycle = this.add.image(30, 30, 'bicycle');
+        bicycle.setInteractive();
+        bicycle.on('pointerdown', () => {
+            this.scene.start('gameover');
+        });
+        let instructions = this.add.image(400, 450, 'why');
+        instructions.setInteractive();
+        instructions.on('pointerdown', () => {
+            this.scene.start('map');
         });
     }
 }
@@ -148,8 +177,11 @@ class MapScene extends Phaser.Scene
     {
         this.add.image(400, 300, 'village');
 
-        const phone = this.add.sprite(511, 272, 'map-phone').setOrigin(0, 0).setInteractive({ cursor: 'pointer' });
+        const phone = this.add.sprite(511, 272, 'eye').setOrigin(0, 0).setInteractive({ cursor: 'pointer' });
         phone.setTint(0x00ff00);
+
+        const thevillage = this.add.sprite(620, 600, 'eye').setOrigin(0, 0).setInteractive({ cursor: 'pointer' });
+        thevillage.setTint(0x00ff00);
 
         var cam = this.cameras.main;
         //cam.setZoom(2);
@@ -165,6 +197,26 @@ class MapScene extends Phaser.Scene
         {
             this.scene.start('play');
         });
+
+        thevillage.on('pointerdown', () =>
+        {
+            this.scene.start('global');
+        });
+    }
+}
+
+class GameOverScene extends Phaser.Scene
+{
+    constructor()
+    {
+        super({ key: 'gameover', active: false });
+    }
+
+    create ()
+    {
+        let go = this.add.video(400, 300, 'game-over')
+        go.play();
+        this.add.text(400, 300, 'Game Over', { font: '48px Arial', fill: '#ffffff' });
     }
 }
 
@@ -175,7 +227,7 @@ const config = {
     width: 800,
     height: 600,
     scene: [
-        LoadScene, MenuScene, PlayScene, MapScene
+        LoadScene, MenuScene, GlobalScene, PlayScene, MapScene, GameOverScene
     ]
 };
 
