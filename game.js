@@ -8,7 +8,7 @@ class LoadScene extends Phaser.Scene
     preload ()
     {
         this.load.image('six', 'assets/menu/six.png');
-        this.load.image('start', 'assets/menu/start.png');
+        this.load.image('start', 'assets/start.png');
 
         this.load.image('information', 'assets/sprites/information.png');
         this.load.image('village', 'assets/map/map.png');
@@ -19,6 +19,9 @@ class LoadScene extends Phaser.Scene
         this.load.image('global', 'assets/global.png');
         this.load.video('game-over', 'assets/game-over.mp4');
         this.load.image('why', 'assets/why.png');
+
+        this.load.image('restart', 'assets/restart.png');
+        this.load.image('jail', 'assets/jail.png');
 
         this.load.image('map-pawn', 'assets/map/map-pawn.png');
         this.load.image('scene-chess', 'assets/scenes/scene-chess.png');
@@ -99,7 +102,7 @@ class MenuScene extends Phaser.Scene
     {
         this.add.image(400, 300, 'six');
         let startButton = this.add.image(400, 450, 'start');
-        startButton.setInteractive();
+        startButton.setInteractive({ cursor: 'pointer' });
         this.tweens.add({
             targets: startButton,
             alpha: 0,
@@ -124,13 +127,8 @@ class GlobalScene extends Phaser.Scene
     create ()
     {
         this.add.image(400, 300, 'global');
-        let bicycle = this.add.image(30, 30, 'bicycle');
-        bicycle.setInteractive();
-        bicycle.on('pointerdown', () => {
-            this.scene.start('gameover');
-        });
         let instructions = this.add.image(400, 450, 'why');
-        instructions.setInteractive();
+        instructions.setInteractive({ cursor: 'pointer' });
         instructions.on('pointerdown', () => {
             this.scene.start('map');
         });
@@ -152,7 +150,7 @@ class PlayScene extends Phaser.Scene
 
         information.on('pointerover', function (event)
         {
-            this.setTint(0xff0000);
+            this.setTint(0x00ff00);
         });
 
         information.on('pointerout', function (event)
@@ -183,6 +181,9 @@ class MapScene extends Phaser.Scene
         const thevillage = this.add.sprite(620, 600, 'eye').setOrigin(0, 0).setInteractive({ cursor: 'pointer' });
         thevillage.setTint(0x00ff00);
 
+        const sea = this.add.sprite(500, 600, 'eye').setOrigin(0, 0).setInteractive({ cursor: 'pointer' });
+        sea.setTint(0x00ff00);
+
         var cam = this.cameras.main;
         //cam.setZoom(2);
 
@@ -202,6 +203,28 @@ class MapScene extends Phaser.Scene
         {
             this.scene.start('global');
         });
+
+        sea.on('pointerdown', () =>
+        {
+            this.scene.start('sea');
+        });
+    }
+}
+
+
+class SeaScene extends Phaser.Scene
+{
+    constructor()
+    {
+        super({ key: 'sea', active: false });
+    }
+
+    create ()
+    {
+        this.add.image(0, 0, 'scene-sea').setOrigin(0, 0);
+        this.add.image(400, 300, 'eye').setInteractive({ cursor: 'pointer' }).on('pointerdown', () => {
+            this.scene.start('gameover');
+        });
     }
 }
 
@@ -214,9 +237,23 @@ class GameOverScene extends Phaser.Scene
 
     create ()
     {
-        let go = this.add.video(400, 300, 'game-over')
-        go.play();
-        this.add.text(400, 300, 'Game Over', { font: '48px Arial', fill: '#ffffff' });
+        let gameOver = this.add.video(400, 300, 'game-over')
+        gameOver.play();
+        gameOver.on('complete', () => {
+            this.add.image(400, 300, 'jail');
+            let restartButton = this.add.image(400, 300, 'restart').setInteractive({ cursor: 'pointer' });
+            this.tweens.add({
+                targets: restartButton,
+                alpha: 0,
+                ease: 'Linear1',
+                duration: 500,
+                repeat: -1,
+                yoyo: true
+            });
+            restartButton.on('pointerdown', () => {
+                this.scene.start('global');
+            });
+        });        
     }
 }
 
@@ -224,10 +261,13 @@ class GameOverScene extends Phaser.Scene
 const config = {
     type: Phaser.AUTO,
     parent: 'phaser3-the-prisoner',
+    scale: {
+        mode: Phaser.Scale.FIT,
+    },
     width: 800,
     height: 600,
     scene: [
-        LoadScene, MenuScene, GlobalScene, PlayScene, MapScene, GameOverScene
+        LoadScene, MenuScene, GlobalScene, SeaScene, PlayScene, MapScene, GameOverScene
     ]
 };
 
