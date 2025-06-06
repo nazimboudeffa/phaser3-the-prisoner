@@ -27,7 +27,7 @@ export default class ShopScene extends Phaser.Scene {
 
         // Liste des objets à vendre
         this.itemsForSale = [
-            { name: 'Montre', price: 30 },
+            { name: 'Watch', price: 30 },
             { name: 'Plan', price: 50 },
             { name: 'Journal', price: 10 }
         ];
@@ -35,12 +35,12 @@ export default class ShopScene extends Phaser.Scene {
         // Affiche les objets avec boutons d'achat
         this.itemsForSale.forEach((item, idx) => {
             const yPos = 120 + idx * 50;
-            this.add.text(100, yPos, `${item.name} - ${item.price} crédits`, {
+            this.add.text(100, yPos, `${item.name} - ${item.price} credits`, {
                 font: '20px Arial',
                 fill: '#fff'
             }).setDepth(1);
 
-            const buyBtn = this.add.text(350, yPos, 'Acheter', {
+            const buyBtn = this.add.text(350, yPos, 'Buy', {
                 font: '18px Arial',
                 fill: '#000',
                 backgroundColor: '#ffcc00',
@@ -53,7 +53,7 @@ export default class ShopScene extends Phaser.Scene {
         });
 
         // Titre
-        this.add.text(50, 20, "Boutique du Village", {
+        this.add.text(50, 20, "Village Shop", {
             font: '28px Arial',
             fill: '#fff',
             backgroundColor: '#000000aa',
@@ -61,7 +61,7 @@ export default class ShopScene extends Phaser.Scene {
         }).setDepth(1);
 
         // Bouton retour
-        const backBtn = this.add.text(600, 520, '← Retour', {
+        const backBtn = this.add.text(600, 520, '← Back', {
             font: '20px Arial',
             fill: '#fff',
             backgroundColor: '#444',
@@ -74,7 +74,7 @@ export default class ShopScene extends Phaser.Scene {
     }
 
     updateMoneyText() {
-        this.moneyText.setText(`Argent : ${this.registry.get('money')} crédits`);
+        this.moneyText.setText(`Money : ${this.registry.get('money')} credits`);
     }
 
     attemptPurchase(item) {
@@ -88,9 +88,9 @@ export default class ShopScene extends Phaser.Scene {
             inventory.push(item.name);
             this.registry.set('inventory', inventory);
 
-            this.showMessage(`${item.name} acheté !`, '#0f0');
+            this.showMessage(`${item.name} bought !`, '#0f0');
         } else {
-            this.showMessage(`Pas assez d'argent pour ${item.name} !`, '#f00');
+            this.showMessage(`Not enugh money for ${item.name} !`, '#f00');
         }
     }
 

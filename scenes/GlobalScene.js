@@ -48,7 +48,7 @@ export default class GlobalScene extends Phaser.Scene {
         this.add.image(400, 300, imageKey);
 
         // Affiche le nom du lieu
-        this.add.text(20, 20, `Lieu : ${this.currentLocation}`, {
+        this.add.text(20, 20, `Location : ${this.currentLocation}`, {
             font: '20px Arial',
             fill: '#ffffff'
         });
@@ -56,7 +56,7 @@ export default class GlobalScene extends Phaser.Scene {
         // Affiche les boutons de navigation
         const connections = this.villageGraph.getConnections(this.currentLocation);
         connections.forEach((loc, idx) => {
-            const btn = this.add.text(50, 100 + idx * 40, `Aller à ${loc}`, {
+            const btn = this.add.text(50, 100 + idx * 40, `Go to ${loc}`, {
                 font: '18px Arial',
                 fill: '#0f0',
                 backgroundColor: '#222',
@@ -76,7 +76,7 @@ export default class GlobalScene extends Phaser.Scene {
 
         // Si on est dans le Shop, affiche un bouton pour y entrer
         if (this.currentLocation === 'Shop') {
-            const enterShopBtn = this.add.text(600, 500, 'Entrer dans la boutique', {
+            const enterShopBtn = this.add.text(600, 500, 'Enter Shop', {
                 font: '18px Arial',
                 fill: '#ffffff',
                 backgroundColor: '#007700',
@@ -89,7 +89,7 @@ export default class GlobalScene extends Phaser.Scene {
         }
 
         if (this.currentLocation === 'Home') {
-            const homeBtn = this.add.text(600, 500, 'Entrer dans le logement', {
+            const homeBtn = this.add.text(600, 500, 'Enter Home', {
                 font: '18px Arial',
                 fill: '#fff',
                 backgroundColor: '#007700',

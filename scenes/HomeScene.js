@@ -10,7 +10,7 @@ export default class HomeScene extends Phaser.Scene {
         this.add.image(400, 300, 'scene-private-1').setDepth(0);
 
         // Titre ou indication
-        this.add.text(50, 40, "Mon Logement - Inventaire", {
+        this.add.text(50, 40, "Six Private - Inventory", {
             font: '26px Arial',
             fill: '#ffffff'
         });
@@ -18,7 +18,7 @@ export default class HomeScene extends Phaser.Scene {
         const inventory = this.registry.get('inventory') || [];
 
         if (inventory.length === 0) {
-            this.add.text(60, 100, "Inventaire vide.", {
+            this.add.text(60, 100, "Inventory is empty.", {
                 font: '20px Arial',
                 fill: '#999'
             });
@@ -32,7 +32,7 @@ export default class HomeScene extends Phaser.Scene {
         }
 
         // Bouton retour
-        const backBtn = this.add.text(100, 300, '← Retour', {
+        const backBtn = this.add.text(100, 300, '← Back', {
             font: '20px Arial',
             fill: '#ffffff',
             backgroundColor: '#444',
