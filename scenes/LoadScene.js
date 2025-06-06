@@ -37,6 +37,8 @@ export default class LoadScene extends Phaser.Scene
     
         this.load.image('map-shop', 'assets/map/map-shop.png');
         this.load.image('scene-shop', 'assets/scenes/scene-shop.png');
+
+        this.load.image('scene-shop-1', 'assets/scenes/scene-shop-1.png');
     
         this.load.image('map-two', 'assets/map/map-two.png');
         this.load.image('scene-two', 'assets/scenes/scene-dome.png');
@@ -61,6 +63,8 @@ export default class LoadScene extends Phaser.Scene
     
         this.load.image('map-private', 'assets/map/map-six-private.png');
         this.load.image('scene-private', 'assets/scenes/scene-six-private.png');
+
+         this.load.image('scene-private-1', 'assets/scenes/scene-six-private-1.png');
     
         this.load.image('map-phone', 'assets/map/map-phone.png');
         this.load.image('scene-phone', 'assets/scenes/scene-phone.png');

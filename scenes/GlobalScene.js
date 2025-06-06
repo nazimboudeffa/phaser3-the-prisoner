@@ -1,15 +1,13 @@
 import VillageGraph from '../graph/VillageGraph.js';
 
-export default class GlobalScene extends Phaser.Scene
-{
-    constructor()
-    {
+export default class GlobalScene extends Phaser.Scene {
+    constructor() {
         super({ key: 'global', active: false });
         this.currentLocation = 'Village';
     }
 
-    create ()
-    {
+    create() {
+        // Initialiser le graphe
         this.villageGraph = new VillageGraph();
         this.villageGraph.addLocation('Village');
         this.villageGraph.addLocation('Phone');
@@ -19,7 +17,9 @@ export default class GlobalScene extends Phaser.Scene
         this.villageGraph.addLocation('Shop');
         this.villageGraph.addLocation('Control');
         this.villageGraph.addLocation('Labour Exchange');
-        
+        this.villageGraph.addLocation('Home');
+
+        // Connexions entre lieux
         this.villageGraph.connectLocations('Village', 'Sea');
         this.villageGraph.connectLocations('Village', 'Phone');
         this.villageGraph.connectLocations('Phone', 'Sea');
@@ -28,8 +28,9 @@ export default class GlobalScene extends Phaser.Scene
         this.villageGraph.connectLocations('Phone', 'Shop');
         this.villageGraph.connectLocations('Phone', 'Labour Exchange');
         this.villageGraph.connectLocations('Phone', 'Control');
+        this.villageGraph.connectLocations('Shop', 'Home');
 
-        // Map locations to their image keys
+        // Associe les lieux aux clés d'image
         const locationImages = {
             'Village': 'village',
             'Phone': 'scene-phone',
@@ -38,29 +39,66 @@ export default class GlobalScene extends Phaser.Scene
             'Cafe': 'scene-cafe',
             'Shop': 'scene-shop',
             'Labour Exchange': 'scene-labour-exchange',
-            'Control': 'scene-control'
+            'Control': 'scene-control',
+            'Home': 'scene-private',
         };
 
-        // Display the image for the current location
+        // Affiche l'image du lieu actuel
         const imageKey = locationImages[this.currentLocation] || 'village';
         this.add.image(400, 300, imageKey);
 
-        // Show current location
-        this.add.text(20, 20, `Location: ${this.currentLocation}`, { font: '20px Arial', fill: '#fff' });
+        // Affiche le nom du lieu
+        this.add.text(20, 20, `Lieu : ${this.currentLocation}`, {
+            font: '20px Arial',
+            fill: '#ffffff'
+        });
 
-        // Show connected locations as buttons
+        // Affiche les boutons de navigation
         const connections = this.villageGraph.getConnections(this.currentLocation);
         connections.forEach((loc, idx) => {
-            const btn = this.add.text(50, 100 + idx * 40, `Go to ${loc}`, { font: '18px Arial', fill: '#0f0', backgroundColor: '#222' })
-                .setInteractive({ cursor: 'pointer' });
+            const btn = this.add.text(50, 100 + idx * 40, `Aller à ${loc}`, {
+                font: '18px Arial',
+                fill: '#0f0',
+                backgroundColor: '#222',
+                padding: { x: 5, y: 3 }
+            }).setInteractive({ cursor: 'pointer' });
+
             btn.on('pointerdown', () => {
                 this.currentLocation = loc;
-                        if (loc === 'Sea') {
-                this.scene.start('gameover'); // Trigger GameOver scene
+
+                if (loc === 'Sea') {
+                    this.scene.start('gameover'); // Aller à la scène de fin
                 } else {
-                    this.scene.restart(); // Restart to update view and image
+                    this.scene.restart(); // Recharge la scène avec le nouveau lieu
                 }
             });
         });
+
+        // Si on est dans le Shop, affiche un bouton pour y entrer
+        if (this.currentLocation === 'Shop') {
+            const enterShopBtn = this.add.text(600, 500, 'Entrer dans la boutique', {
+                font: '18px Arial',
+                fill: '#ffffff',
+                backgroundColor: '#007700',
+                padding: { x: 10, y: 5 }
+            }).setInteractive({ cursor: 'pointer' });
+
+            enterShopBtn.on('pointerdown', () => {
+                this.scene.start('shop'); // Passe à la scène ShopScene
+            });
+        }
+
+        if (this.currentLocation === 'Home') {
+            const homeBtn = this.add.text(600, 500, 'Entrer dans le logement', {
+                font: '18px Arial',
+                fill: '#fff',
+                backgroundColor: '#007700',
+                padding: { x: 10, y: 5 }
+            }).setInteractive({ cursor: 'pointer' });
+
+            homeBtn.on('pointerdown', () => {
+                this.scene.start('home');
+            });
+        }
     }
 }
