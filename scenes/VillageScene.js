@@ -86,12 +86,7 @@ export default class VillageScene extends Phaser.Scene {
                 // Met à jour le lieu actuel dans le registre
                 this.registry.set('currentLocation', loc);
                 this.currentLocation = loc;
-
-                if (loc === 'Sea') {
-                    this.scene.start('gameover'); // Aller à la scène de fin
-                } else {
-                    this.scene.restart(); // Recharge la scène avec le nouveau lieu
-                }
+                this.scene.restart();
             });
         });
 
@@ -122,15 +117,28 @@ export default class VillageScene extends Phaser.Scene {
             });
         }
 
-        if (this.currentLocation === 'Dome') {
-            const homeBtn = this.add.text(600, 500, 'Enter Dome', {
+        if (this.currentLocation === 'Sea') {
+            const seaBtn = this.add.text(600, 500, 'Enter Sea', {
                 font: '18px Arial',
                 fill: '#fff',
                 backgroundColor: '#007700',
                 padding: { x: 10, y: 5 }
             }).setInteractive({ cursor: 'pointer' });
 
-            homeBtn.on('pointerdown', () => {
+            seaBtn.on('pointerdown', () => {
+                this.scene.start('sea');
+            });
+        }
+
+        if (this.currentLocation === 'Dome') {
+            const domeBtn = this.add.text(600, 500, 'Enter Dome', {
+                font: '18px Arial',
+                fill: '#fff',
+                backgroundColor: '#007700',
+                padding: { x: 10, y: 5 }
+            }).setInteractive({ cursor: 'pointer' });
+
+            domeBtn.on('pointerdown', () => {
                 this.scene.start('two');
             });
         }

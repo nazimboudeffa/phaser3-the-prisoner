@@ -60,6 +60,16 @@ export default class LoadScene extends Phaser.Scene
         this.load.image('restart', 'assets/restart.png');
         this.load.image('jail', 'assets/jail.png');
 
+        // Load dice images
+        //this.load.image('beach', 'assets/beach.png'); // arrière-plan
+        //this.load.image('hover', 'assets/hover.png'); // ballon
+        this.load.image('dice1', 'assets/dice/1.png');
+        this.load.image('dice2', 'assets/dice/2.png');
+        this.load.image('dice3', 'assets/dice/3.png');
+        this.load.image('dice4', 'assets/dice/4.png');
+        this.load.image('dice5', 'assets/dice/5.png');
+        this.load.image('dice6', 'assets/dice/6.png');
+
         // Load scenes images
         this.load.image('scene-chess', 'assets/scenes/scene-chess.png');
         this.load.image('scene-helico', 'assets/scenes/scene-helicopter.png');
