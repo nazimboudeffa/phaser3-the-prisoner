@@ -28,7 +28,7 @@ export default class ShopScene extends Phaser.Scene {
         // Liste des objets à vendre
         this.itemsForSale = [
             { name: 'Watch', price: 30 },
-            { name: 'Plan', price: 50 },
+            { name: 'Map', price: 50 },
             { name: 'Journal', price: 10 }
         ];
 
@@ -69,7 +69,7 @@ export default class ShopScene extends Phaser.Scene {
         }).setInteractive({ cursor: 'pointer' }).setDepth(1);
 
         backBtn.on('pointerdown', () => {
-            this.scene.start('global');
+            this.scene.start('village');
         });
     }
 
@@ -78,15 +78,18 @@ export default class ShopScene extends Phaser.Scene {
     }
 
     attemptPurchase(item) {
-        let money = this.registry.get('money');
-        if (money >= item.price) {
-            money -= item.price;
-            this.registry.set('money', money);
-            this.updateMoneyText();
+        this.money = this.registry.get('money');
+        this.inventory = this.registry.get('inventory');
+        if (this.inventory.includes(item.name)) {
+            this.showMessage(`${item.name} is already in your inventory!`, '#f00');
+        } else if (this.money >= item.price) {
+            this.money -= item.price;
+            this.inventory.push(item.name);
 
-            const inventory = this.registry.get('inventory');
-            inventory.push(item.name);
-            this.registry.set('inventory', inventory);
+            this.registry.set('money', this.money);
+            this.updateMoneyText();
+            // Mettre à jour l'inventaire dans le registre
+            this.registry.set('inventory', this.inventory);
 
             this.showMessage(`${item.name} bought !`, '#0f0');
         } else {

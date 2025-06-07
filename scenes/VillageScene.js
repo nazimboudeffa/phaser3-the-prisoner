@@ -1,50 +1,65 @@
 import VillageGraph from '../graph/VillageGraph.js';
 
-export default class GlobalScene extends Phaser.Scene {
+export default class VillageScene extends Phaser.Scene {
     constructor() {
-        super({ key: 'global', active: false });
-        this.currentLocation = 'Village';
+        super({ key: 'village', active: false });
     }
 
     create() {
         // Initialiser le graphe
         this.villageGraph = new VillageGraph();
-        this.villageGraph.addLocation('Village');
-        this.villageGraph.addLocation('Phone');
-        this.villageGraph.addLocation('Sea');
-        this.villageGraph.addLocation('Hospital');
-        this.villageGraph.addLocation('Cafe');
         this.villageGraph.addLocation('Shop');
-        this.villageGraph.addLocation('Control');
-        this.villageGraph.addLocation('Labour Exchange');
         this.villageGraph.addLocation('Home');
+        this.villageGraph.addLocation('Phone Box'); // point central
+        this.villageGraph.addLocation('Cafe');
+        //this.villageGraph.addLocation('Labour Exchange');
+        //this.villageGraph.addLocation('Hospital');
+        //this.villageGraph.addLocation('Green Dome');
+        //this.villageGraph.addLocation('Beach');
+        this.villageGraph.addLocation('Sea');
+        //this.villageGraph.addLocation('Recreation Hall');
+        //this.villageGraph.addLocation('Town Hall');
+        //this.villageGraph.addLocation('Tower');
+        //this.villageGraph.addLocation('Helipad');
+        //this.villageGraph.addLocation('Peoples Home');
+        //this.villageGraph.addLocation('Lighthouse');
+        //this.villageGraph.addLocation('Graveyard');
+        //this.villageGraph.addLocation('Chess Lawn');
+        //this.villageGraph.addLocation('Bandstand');
 
         // Connexions entre lieux
-        this.villageGraph.connectLocations('Village', 'Sea');
-        this.villageGraph.connectLocations('Village', 'Phone');
-        this.villageGraph.connectLocations('Phone', 'Sea');
-        this.villageGraph.connectLocations('Phone', 'Hospital');
-        this.villageGraph.connectLocations('Phone', 'Cafe');
-        this.villageGraph.connectLocations('Phone', 'Shop');
-        this.villageGraph.connectLocations('Phone', 'Labour Exchange');
-        this.villageGraph.connectLocations('Phone', 'Control');
+        this.villageGraph.connectLocations('Phone Box', 'Shop');
         this.villageGraph.connectLocations('Shop', 'Home');
+        this.villageGraph.connectLocations('Phone Box', 'Cafe');
+        this.villageGraph.connectLocations('Phone Box', 'Sea');
+        //this.villageGraph.connectLocations('Cafe', 'Labour Exchange');
+        //this.villageGraph.connectLocations('Labour Exchange', 'Hospital');
+        //this.villageGraph.connectLocations('Phone Box', 'Town Hall');
+        //this.villageGraph.connectLocations('Town Hall', 'Peoples Home');
+        //this.villageGraph.connectLocations('Peoples Home', 'Beach');
+        //this.villageGraph.connectLocations('Beach', 'Sea');
+        //this.villageGraph.connectLocations('Peoples Home', 'Helipad');
+        //this.villageGraph.connectLocations('Village', 'Green Dome');
+        //this.villageGraph.connectLocations('Green Dome', 'Recreation Hall');
+        //this.villageGraph.connectLocations('Recreation Hall', 'Tower');
+        //this.villageGraph.connectLocations('Tower', 'Lighthouse');
+        //this.villageGraph.connectLocations('Lighthouse', 'Graveyard');
 
         // Associe les lieux aux clés d'image
         const locationImages = {
-            'Village': 'village',
-            'Phone': 'scene-phone',
+            'Phone Box': 'scene-phone',
             'Sea': 'scene-sea',
-            'Hospital': 'scene-hospital',
+            //'Hospital': 'scene-hospital',
             'Cafe': 'scene-cafe',
             'Shop': 'scene-shop',
-            'Labour Exchange': 'scene-labour-exchange',
-            'Control': 'scene-control',
-            'Home': 'scene-private',
+            //'Labour Exchange': 'scene-labour-exchange',
+            //'Control': 'scene-control',
+            'Home': 'scene-home',
         };
 
         // Affiche l'image du lieu actuel
-        const imageKey = locationImages[this.currentLocation] || 'village';
+        this.currentLocation = this.registry.get('currentLocation');
+        const imageKey = locationImages[this.currentLocation] || 'Phone Box';
         this.add.image(400, 300, imageKey);
 
         // Affiche le nom du lieu

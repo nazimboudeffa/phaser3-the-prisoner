@@ -19,7 +19,7 @@ export default class MenuScene extends Phaser.Scene
             yoyo: true
         });
         startButton.on('pointerdown', () => {
-            this.scene.start('global');
+            this.scene.start('intro');
         });
     }
 }

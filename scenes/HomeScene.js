@@ -7,7 +7,7 @@ export default class HomeScene extends Phaser.Scene {
 
     create() {
         // Affiche l'image de fond de la maison
-        this.add.image(400, 300, 'scene-private-1').setDepth(0);
+        this.add.image(400, 300, 'scene-sixprivate').setDepth(0);
 
         // Titre ou indication
         this.add.text(50, 40, "Six Private - Inventory", {
@@ -27,6 +27,13 @@ export default class HomeScene extends Phaser.Scene {
                 this.add.text(60, 100 + i * 30, `- ${item}`, {
                     font: '20px Arial',
                     fill: '#fff'
+                }).setInteractive({ cursor: 'pointer' })
+                .on('pointerdown', () => {
+                    console.log(`Clicked on item: ${item}`);
+                    // Ici, vous pouvez ajouter une action pour l'item
+                    if (item === 'Map') {
+                        this.scene.start('map'); // Démarrer la scène de la montre
+                    }
                 });
             });
         }
@@ -40,7 +47,7 @@ export default class HomeScene extends Phaser.Scene {
         }).setInteractive({ cursor: 'pointer' });
 
         backBtn.on('pointerdown', () => {
-            this.scene.start('global'); // Retour au village
+            this.scene.start('village'); // Retour au village
         });
     }
 }

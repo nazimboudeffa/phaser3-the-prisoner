@@ -1,6 +1,7 @@
 import LoadScene from './scenes/LoadScene.js';
 import MenuScene from './scenes/MenuScene.js';
-import GlobalScene from './scenes/GlobalScene.js';
+import IntroScene from './scenes/IntroScene.js';
+import VillageScene from './scenes/VillageScene.js';
 import MapScene from './scenes/MapScene.js';
 import GameOverScene from './scenes/GameOverScene.js';
 import ShopScene from './scenes/ShopScene.js';
@@ -13,7 +14,7 @@ const config = {
     width: 800,
     height: 600,
     scene: [
-        LoadScene, MenuScene, GlobalScene, MapScene, GameOverScene, ShopScene, HomeScene
+        LoadScene, MenuScene, IntroScene, VillageScene, MapScene, GameOverScene, ShopScene, HomeScene
     ]
 };
 
