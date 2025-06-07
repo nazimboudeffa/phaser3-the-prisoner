@@ -59,6 +59,7 @@ export default class VillageScene extends Phaser.Scene {
 
         // Affiche l'image du lieu actuel
         this.currentLocation = this.registry.get('currentLocation');
+        console.log('Current Location:', this.currentLocation);
         const imageKey = locationImages[this.currentLocation] || 'Phone Box';
         this.add.image(400, 300, imageKey);
 
@@ -79,6 +80,8 @@ export default class VillageScene extends Phaser.Scene {
             }).setInteractive({ cursor: 'pointer' });
 
             btn.on('pointerdown', () => {
+                // Met à jour le lieu actuel dans le registre
+                this.registry.set('currentLocation', loc);
                 this.currentLocation = loc;
 
                 if (loc === 'Sea') {

@@ -21,6 +21,8 @@ export default class GameOverScene extends Phaser.Scene
                 yoyo: true
             });
             restartButton.on('pointerdown', () => {
+                // Reset the game state
+                this.registry.set('currentLocation', 'Phone Box'); // Reset to initial location
                 this.scene.start('menu');
             });
         });        
