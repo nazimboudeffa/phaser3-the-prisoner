@@ -7,7 +7,7 @@ export default class HomeScene extends Phaser.Scene {
 
     create() {
         // Affiche l'image de fond de la maison
-        this.add.image(400, 300, 'scene-sixprivate').setDepth(0);
+        this.add.image(400, 300, 'scene-home-private').setDepth(0);
 
         // Titre ou indication
         this.add.text(50, 40, "Six Private - Inventory", {
@@ -39,7 +39,7 @@ export default class HomeScene extends Phaser.Scene {
         }
 
         // Bouton retour
-        const backBtn = this.add.text(100, 300, '← Back', {
+        const backBtn = this.add.text(600, 520, '← Back', {
             font: '20px Arial',
             fill: '#ffffff',
             backgroundColor: '#444',

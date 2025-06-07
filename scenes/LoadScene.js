@@ -29,8 +29,9 @@ export default class LoadScene extends Phaser.Scene
         this.load.image('scene-freesea', 'assets/scenes/scene-freesea.png');
         this.load.image('scene-ship', 'assets/scenes/scene-ship.png');
         this.load.image('scene-shop', 'assets/scenes/scene-shop.png');
-        this.load.image('scene-shop-1', 'assets/scenes/scene-shop-1.png');
-        this.load.image('scene-two', 'assets/scenes/scene-dome.png');
+        this.load.image('scene-shop-private', 'assets/scenes/scene-shop-1.png');
+        this.load.image('scene-dome', 'assets/scenes/scene-dome.png');
+        this.load.image('scene-dome-two', 'assets/scenes/scene-two.png');
         this.load.image('scene-control', 'assets/scenes/scene-town-hall.png');
         this.load.image('scene-labour-exchange', 'assets/scenes/scene-labour-exchange.png');
         this.load.image('scene-sea', 'assets/scenes/scene-sea.png');
@@ -38,7 +39,7 @@ export default class LoadScene extends Phaser.Scene
         this.load.image('scene-hospital', 'assets/scenes/scene-hospital.png');
         this.load.image('scene-cafe', 'assets/scenes/scene-cafe.png');
         this.load.image('scene-home', 'assets/scenes/scene-home.png');
-        this.load.image('scene-sixprivate', 'assets/scenes/scene-sixprivate.png');
+        this.load.image('scene-home-private', 'assets/scenes/scene-sixprivate.png');
         this.load.image('scene-phone', 'assets/scenes/scene-phone.png');
 
         let loadingBar = this.add.graphics({

@@ -14,7 +14,7 @@ export default class ShopScene extends Phaser.Scene {
         }
 
         // Affiche fond
-        this.add.image(400, 300, 'scene-shop-1').setDepth(0);
+        this.add.image(400, 300, 'scene-shop-private').setDepth(0);
 
         // Affiche argent
         this.moneyText = this.add.text(500, 20, '', {

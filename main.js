@@ -6,6 +6,7 @@ import MapScene from './scenes/MapScene.js';
 import GameOverScene from './scenes/GameOverScene.js';
 import ShopScene from './scenes/ShopScene.js';
 import HomeScene from './scenes/HomeScene.js';
+import NumberTwoScene from './scenes/NumberTwoScene.js';
 
 const config = {
     type: Phaser.AUTO,
@@ -14,7 +15,7 @@ const config = {
     width: 800,
     height: 600,
     scene: [
-        LoadScene, MenuScene, IntroScene, VillageScene, MapScene, GameOverScene, ShopScene, HomeScene
+        LoadScene, MenuScene, IntroScene, VillageScene, MapScene, GameOverScene, ShopScene, HomeScene, NumberTwoScene
     ],
     scale : {
         mode: Phaser.Scale.FIT,

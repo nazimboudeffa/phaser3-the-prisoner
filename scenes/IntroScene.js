@@ -32,9 +32,10 @@ export default class IntroScene extends Phaser.Scene {
         // Start button appears after all lines
         this.time.delayedCall(story.length * 2000, () => {
             const btn = this.add.text(300, 500, 'Enter the Village', {
-                font: '20px Arial',
-                fill: '#fff',
-                backgroundColor: '#000'
+                font: '18px Arial',
+                fill: '#0f0',
+                backgroundColor: '#222',
+                padding: { x: 5, y: 3 }
             }).setInteractive({ cursor: 'pointer' });
 
             btn.on('pointerdown', () => {

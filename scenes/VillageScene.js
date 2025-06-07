@@ -12,6 +12,7 @@ export default class VillageScene extends Phaser.Scene {
         this.villageGraph.addLocation('Home');
         this.villageGraph.addLocation('Phone Box'); // point central
         this.villageGraph.addLocation('Cafe');
+        this.villageGraph.addLocation('Dome');
         //this.villageGraph.addLocation('Labour Exchange');
         //this.villageGraph.addLocation('Hospital');
         //this.villageGraph.addLocation('Green Dome');
@@ -32,6 +33,7 @@ export default class VillageScene extends Phaser.Scene {
         this.villageGraph.connectLocations('Shop', 'Home');
         this.villageGraph.connectLocations('Phone Box', 'Cafe');
         this.villageGraph.connectLocations('Phone Box', 'Sea');
+        this.villageGraph.connectLocations('Home', 'Dome');
         //this.villageGraph.connectLocations('Cafe', 'Labour Exchange');
         //this.villageGraph.connectLocations('Labour Exchange', 'Hospital');
         //this.villageGraph.connectLocations('Phone Box', 'Town Hall');
@@ -55,6 +57,7 @@ export default class VillageScene extends Phaser.Scene {
             //'Labour Exchange': 'scene-labour-exchange',
             //'Control': 'scene-control',
             'Home': 'scene-home',
+            'Dome': 'scene-dome',
         };
 
         // Affiche l'image du lieu actuel
@@ -116,6 +119,19 @@ export default class VillageScene extends Phaser.Scene {
 
             homeBtn.on('pointerdown', () => {
                 this.scene.start('home');
+            });
+        }
+
+        if (this.currentLocation === 'Dome') {
+            const homeBtn = this.add.text(600, 500, 'Enter Dome', {
+                font: '18px Arial',
+                fill: '#fff',
+                backgroundColor: '#007700',
+                padding: { x: 10, y: 5 }
+            }).setInteractive({ cursor: 'pointer' });
+
+            homeBtn.on('pointerdown', () => {
+                this.scene.start('two');
             });
         }
     }
