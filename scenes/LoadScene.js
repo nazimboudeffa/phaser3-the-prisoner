@@ -7,6 +7,43 @@ export default class LoadScene extends Phaser.Scene
 
     preload ()
     {
+        // Dimensions
+        const { width, height } = this.cameras.main;
+
+        // Barre visuelle
+        const progressBar = this.add.graphics();
+        const progressBox = this.add.graphics();
+        progressBox.fillStyle(0x222222, 0.8);
+        progressBox.fillRect(width / 2 - 160, height / 2 - 25, 320, 50);
+
+        // Texte de chargement
+        const loadingText = this.add.text(width / 2, height / 2 - 60, 'Loading...', {
+            font: '20px monospace',
+            fill: '#ffffff'
+        }).setOrigin(0.5, 0.5);
+
+        const percentText = this.add.text(width / 2, height / 2, '0%', {
+            font: '18px monospace',
+            fill: '#ffffff'
+        }).setOrigin(0.5, 0.5);
+
+        // Mise à jour du pourcentage
+        this.load.on('progress', (value) => {
+            percentText.setText(`${Math.floor(value * 100)}%`);
+            progressBar.clear();
+            progressBar.fillStyle(0xffffff, 1);
+            progressBar.fillRect(width / 2 - 150, height / 2 - 15, 300 * value, 30);
+        });
+
+        // Clean-up une fois terminé
+        this.load.on('complete', () => {
+            progressBar.destroy();
+            progressBox.destroy();
+            loadingText.destroy();
+            percentText.destroy();
+        });
+
+        // Chargement des ressources
         this.load.image('six', 'assets/menu/six.png');
         this.load.image('start', 'assets/start.png');
 
@@ -41,25 +78,6 @@ export default class LoadScene extends Phaser.Scene
         this.load.image('scene-home', 'assets/scenes/scene-home.png');
         this.load.image('scene-home-private', 'assets/scenes/scene-sixprivate.png');
         this.load.image('scene-phone', 'assets/scenes/scene-phone.png');
-
-        let loadingBar = this.add.graphics({
-            fillStyle: {
-                color: 0xffffff //white
-            }
-        });
-
-        this.load.on("progress", (percent) => {
-            loadingBar.fillRect(0, this.game.renderer.width / 2, this.game.renderer.height * percent, 50);
-            console.log(percent);
-        })
-
-        this.load.on("complete", () => {
-            console.log("complete");
-        });
-
-        this.load.on("load", (file) => {
-            console.log(file.src)
-        })
     }
 
     create ()
