@@ -15,7 +15,12 @@ const config = {
     height: 600,
     scene: [
         LoadScene, MenuScene, IntroScene, VillageScene, MapScene, GameOverScene, ShopScene, HomeScene
-    ]
+    ],
+    scale : {
+        mode: Phaser.Scale.FIT,
+        width: 800,
+        height: 600
+    },
 };
 
 const game = new Phaser.Game(config);
