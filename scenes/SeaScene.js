@@ -9,7 +9,7 @@ export default class SeaScene extends Phaser.Scene {
             fill: '#ffffff',
         });
 
-        const rollBtn = this.add.text(340, 500, '🎲 Lancer les dés', {
+        const rollBtn = this.add.text(340, 500, '🎲 Roll dice', {
             font: '24px Arial',
             backgroundColor: '#222',
             fill: '#0f0',
