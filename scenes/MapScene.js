@@ -8,28 +8,8 @@ export default class MapScene extends Phaser.Scene {
     }
 
     create() {
-        this.add.image(400, 300, 'village-map').setScale(0.8);
-
-        // Exemple de hotspots
-        const hotspots = [
-            { name: 'Shop', x: 460, y: 140 },
-            { name: 'Hospital', x: 990, y: 330 },
-            { name: 'Cafe', x: 680, y: 120 },
-            { name: 'Phone Box', x: 420, y: 140 },
-            { name: 'Town Hall', x: 530, y: 260 }
-            // Ajoute d'autres lieux ici
-        ];
-
-        hotspots.forEach(h => {
-            const zone = this.add.zone(h.x, h.y, 40, 40)
-                .setInteractive()
-                .on('pointerdown', () => {
-                    this.showMessage(`${h.name}`, '#0f0');
-                });
-
-            // Optionnel : cercle visuel
-            this.add.circle(h.x, h.y, 6, 0xff0000).setStrokeStyle(2, 0xffffff);
-        });
+        this.mapImage = this.add.image(0, 0, 'village-map').setOrigin(0, 0);
+        this.cameras.main.setBounds(0, 0, this.mapImage.width, this.mapImage.height);
 
         // Camera movement for navigating the map
         let cam = this.cameras.main;
@@ -41,31 +21,18 @@ export default class MapScene extends Phaser.Scene {
             cam.scrollY -= (p.y - p.prevPosition.y) / cam.zoom;
         });
 
-        // Bouton retour
-        this.add.text(20, 550, '← Back', {
+        const backBtn = this.add.text(20, 20, '← Back', {
             font: '20px Arial',
             fill: '#ffffff',
             backgroundColor: '#444',
             padding: { x: 10, y: 5 }
-        }).setInteractive()
-          .on('pointerdown', () => {
-              this.scene.start('home'); // retour à la scène globale
+        })
+        .setInteractive({ useHandCursor: true })
+        .setScrollFactor(0) // ← Fixe à l’écran
+        .setDepth(10)       // ← Toujours au-dessus
+
+        backBtn.on('pointerdown', () => {
+            this.scene.start('home');
         });
     }
-
-    showMessage(text, color) {
-        if (this.msgText) this.msgText.destroy();
-        this.msgText = this.add.text(300, 480, text, {
-            font: '18px Arial',
-            fill: color,
-            backgroundColor: '#000',
-            padding: { x: 5, y: 3 }
-        }).setDepth(1);
-
-        // Supprimer le message après 2 secondes
-        this.time.delayedCall(1000, () => {
-            if (this.msgText) this.msgText.destroy();
-            this.msgText = null;
-        });
-    };
 }
